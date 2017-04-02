@@ -10,30 +10,32 @@ public class Meio {
 	static Receptor r; 
 	static Semaphore s;
 	public static void main(String[] args) throws InterruptedException {
-		t = new Transmissor();
-		r = new Receptor();
-		s = new Semaphore(1);
-		int endDestino [] = r.getMac();
+		transmissor = new Transmissor();
+		receptor = new Receptor();
+		semaphore = new Semaphore(1);
+		int endDestino [] = receptor.getMac();
 		
-		Scanner ler = new Scanner(System.in);
+		Scanner lerDados = new Scanner(System.in);
 		System.out.println("Insira o numero de dados a ser enviado em bytes: ");
-		int n = ler.nextInt();
-		ler.close();
-		int[] quadros[] = t.definirDados(endDestino, n);
-		s.acquire();
+		int numeroDados = lerDados.nextInt();
+		lerDados.close();
+		int[] quadros[] = transmissor.definirDados(endDestino, numeroDados);
+		semaphore.acquire();
 		
-		for(int i = 0; i < quadros.length; i++){
-			adicionarRuido(quadros[i]);
-			quadros[i] = null;
+		for(int tamanho = 0; tamanho < quadros.length; tamanho++){
+			adicionarRuido(quadros[tamanho]);
+			
+
+			quadros[tamanho] = null;
 		}
-		s.release();
+		semaphore.release();
 	}
 
 	private static void adicionarRuido(int[] quadro){
-		//random de 0 e 1 se for 0 não add ruido se 1 add ruido
-		Random rd = new Random();
-		int ruido = rd.nextInt(2);
-		if(ruido == 1){
+
+		Random numeroAleatorio = new Random();
+		int inserirRuido = numeroAleatorio.nextInt(2);
+		if(inserirRuido == 1){
 			if(quadro[50] == 0){
 				quadro[50] = 1;
 			}
@@ -41,7 +43,7 @@ public class Meio {
 				quadro[50] = 0;
 			}
 		}
-		// chama envia quadro
-		r.receberQuadro(quadro);
+	
+		receptor.enviarQuadro(quadro);
 	}
 }

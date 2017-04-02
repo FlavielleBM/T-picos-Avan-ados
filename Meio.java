@@ -6,9 +6,9 @@ import java.util.concurrent.Semaphore;
 
 public class Meio {
 	
-	static Transmissor t;
-	static Receptor r; 
-	static Semaphore s;
+	static Transmissor transmissor;
+	static Receptor receptor; 
+	static Semaphore semaphore;
 	public static void main(String[] args) throws InterruptedException {
 		transmissor = new Transmissor();
 		receptor = new Receptor();

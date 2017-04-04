@@ -31,6 +31,8 @@ public class Meio {
 		semaphore.release();
 	}
 
+	/*Inserir um bit de ruido na sequencia do quadro
+	caso seja 1 subtituirá por 0 e vice-versa*/
 	private static void adicionarRuido(int[] quadro){
 
 		Random numeroAleatorio = new Random();
